@@ -1,10 +1,10 @@
 use std::time::Instant;
 
-use knight_mov::{get_min_rect_area, get_min_displacement};
+use knight_mov::{get_min_displacement, get_min_rect_area};
 
-const A: i32 = 13;
-const B: i32 = 10;
-const STEPS: usize = 4;
+const A: i32 = 4;
+const B: i32 = 5;
+const STEPS: usize = 5;
 
 fn main() {
     let start_time = Instant::now();
@@ -20,6 +20,6 @@ fn main() {
         minimum,
         (minimum.displacement.norm_sqr() as f32).sqrt()
     );
-    let min_area = get_min_rect_area(&minimum);
+    let min_area = get_min_rect_area(&minimum, A, B);
     println!("{:?}", min_area);
 }
