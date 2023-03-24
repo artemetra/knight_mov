@@ -54,15 +54,7 @@ impl DispAndMoves {
 pub fn get_min_displacement(a: i32, b: i32, steps: usize) -> DispAndMoves {
     let mut curr_min = DispAndMoves::new(Complex::new(1000, 1000), vec![0, 0, 0]);
 
-    for idx in 0..8_u128.pow(steps as u32) {
-        // TODO: implement using a less clunky method lol (itertools?)
-        // Convert idx to octal with front zeros filled
-        // and collect into Vec of digits
-        let moves: Vec<u8> = format!("{:0fill$o}", idx, fill = steps)
-            .chars()
-            .map(|d| d.to_digit(10).unwrap() as u8)
-            .collect();
-
+    for moves in (0..steps).map(|_| 0..8).multi_cartesian_product() {
         if check_for_inverses(&moves) {
             continue;
         }
@@ -81,13 +73,10 @@ pub fn get_min_displacement(a: i32, b: i32, steps: usize) -> DispAndMoves {
 
 /// TODO
 pub fn get_min_rect_area(lam: &DispAndMoves) -> (Vec<u8>, u64) {
-    
     let mut min_area: u64 = u64::MAX;
     let mut curr_min: Vec<u8> = lam.moves.clone();
 
-    for perm in curr_min.clone().into_iter().permutations(curr_min.len()) {
-
-    }
+    for perm in curr_min.clone().into_iter().permutations(curr_min.len()) {}
 
     (vec![0u8], 0)
 }
