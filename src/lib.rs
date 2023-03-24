@@ -112,9 +112,9 @@ impl ComplexBox {
 
 /// Returns the permutation of the moves that minimizes
 /// the area spanned by the total translation. 
-pub fn get_min_rect_area(lam: &DispAndMoves) -> (Vec<u8>, u64) {
+pub fn get_min_rect_area(dam: &DispAndMoves) -> (Vec<u8>, u64) {
     // The moves that yield the minimal area
-    let mut curr_min: Vec<u8> = lam.moves.clone();
+    let mut curr_min: Vec<u8> = dam.moves.clone();
     // Current minimal area
     let mut min_area: u64 = u64::MAX;
 
@@ -122,7 +122,7 @@ pub fn get_min_rect_area(lam: &DispAndMoves) -> (Vec<u8>, u64) {
         let mut res = Complex::new(0, 0);
         let mut c_box = ComplexBox::default();
         for move_ in move_perm.clone().into_iter() {
-            res += move_to_complex(move_, lam.a, lam.b);
+            res += move_to_complex(move_, dam.a, dam.b);
             c_box.update_from_complex(res);
         }
         if min_area > c_box.get_area() {
