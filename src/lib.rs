@@ -37,27 +37,27 @@ fn move_to_complex(move_: u8, a: i32, b: i32) -> Complex<i32> {
 }
 
 #[derive(Debug)]
-pub struct LenAndMoves {
+pub struct DispAndMoves {
     pub displacement: Complex<i32>,
     pub moves: Vec<u8>,
 }
 
-impl LenAndMoves {
-    pub fn new(displacement: Complex<i32>, moves: Vec<u8>) -> LenAndMoves {
-        LenAndMoves {
+impl DispAndMoves {
+    pub fn new(displacement: Complex<i32>, moves: Vec<u8>) -> DispAndMoves {
+        DispAndMoves {
             displacement,
             moves,
         }
     }
 }
 
-pub fn get_min_displacement(a: i32, b: i32, steps: usize) -> LenAndMoves {
-    let mut curr_min = LenAndMoves::new(Complex::new(1000, 1000), vec![0, 0, 0]);
+pub fn get_min_displacement(a: i32, b: i32, steps: usize) -> DispAndMoves {
+    let mut curr_min = DispAndMoves::new(Complex::new(1000, 1000), vec![0, 0, 0]);
 
     for idx in 0..8_u128.pow(steps as u32) {
-        // Convert to octal with front zeros filled
-        // and collect into Vec of digits
         // TODO: implement using a less clunky method lol (itertools?)
+        // Convert idx to octal with front zeros filled
+        // and collect into Vec of digits
         let moves: Vec<u8> = format!("{:0fill$o}", idx, fill = steps)
             .chars()
             .map(|d| d.to_digit(10).unwrap() as u8)
@@ -80,7 +80,7 @@ pub fn get_min_displacement(a: i32, b: i32, steps: usize) -> LenAndMoves {
 }
 
 /// TODO
-pub fn get_min_rect_area(lam: &LenAndMoves) -> (Vec<u8>, u64) {
+pub fn get_min_rect_area(lam: &DispAndMoves) -> (Vec<u8>, u64) {
     
     let mut min_area: u64 = u64::MAX;
     let mut curr_min: Vec<u8> = lam.moves.clone();
