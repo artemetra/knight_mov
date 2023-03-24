@@ -20,6 +20,6 @@ fn main() {
         minimum,
         (minimum.displacement.norm_sqr() as f32).sqrt()
     );
-    let min_area = get_min_rect_area(&minimum, A, B);
+    let min_area = get_min_rect_area(&minimum);
     println!("{:?}", min_area);
 }

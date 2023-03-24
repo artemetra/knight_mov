@@ -22,7 +22,7 @@ pub fn check_for_inverses(moves: &[u8]) -> bool {
 /// Turns an encoded move into a complex number
 fn move_to_complex(move_: u8, a: i32, b: i32) -> Complex<i32> {
     let (n, m): (u8, u8);
-    // Split into n and m - n is either 0 or 1, m is 0,1,2,3.
+    // Split into n and m -- n is either 0 or 1, m is 0, 1, 2, 3.
     (n, m) = div_rem(move_, 4);
     let mut c_num: Complex<i32> = Complex::new(a, (-1_i32).pow(n as u32) * b);
 
@@ -110,8 +110,9 @@ impl ComplexBox {
     }
 }
 
-/// TODO
-pub fn get_min_rect_area(lam: &DispAndMoves, a: i32, b: i32) -> (Vec<u8>, u64) {
+/// Returns the permutation of the moves that minimizes
+/// the area spanned by the total translation. 
+pub fn get_min_rect_area(lam: &DispAndMoves) -> (Vec<u8>, u64) {
     // The moves that yield the minimal area
     let mut curr_min: Vec<u8> = lam.moves.clone();
     // Current minimal area
@@ -121,7 +122,7 @@ pub fn get_min_rect_area(lam: &DispAndMoves, a: i32, b: i32) -> (Vec<u8>, u64) {
         let mut res = Complex::new(0, 0);
         let mut c_box = ComplexBox::default();
         for move_ in move_perm.clone().into_iter() {
-            res += move_to_complex(move_, a, b);
+            res += move_to_complex(move_, lam.a, lam.b);
             c_box.update_from_complex(res);
         }
         if min_area > c_box.get_area() {
